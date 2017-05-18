@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>登陆</title>
+<link rel="stylesheet" href="css/style1.css">
+<link rel="stylesheet" href="plugs/BeAlert/BeAlert.css">
+<script type="text/javascript">
+
+</script>
+<body  style="background:url('images/bg.jpg')no-repeat">
+
+<div class="login-container" >
+    <h1>欢迎登陆</h1>
+    <form action="" method="post" id="loginForm">
+        <div>
+            <input type="text" name="username" id="username" class="username" placeholder="用户名" autocomplete="off"/>
+        </div>
+        <div>
+            <input type="password" name="password" id="password" class="password" placeholder="密码" oncontextmenu="return false" onpaste="return false" />
+        </div>
+          <button id="submit"  class="btn" type="submit" name="submit"> 登 陆 </button> 
+    </form>
+
+    <a href="register.html">
+        <button type="button" class="btn register-tis">还有没有账号？</button>
+    </a>
+</div>
+
+</body>
+<script src="js/jquery.min.js"></script>
+<!-- <script src="js/common.js"></script> -->
+<!--表单验证-->
+<script src="js/jquery.validate.js"></script>
+<script src="plugs/BeAlert/BeAlert.js"></script>
+<script src="js/jquerySession.js"></script>
+<script type="text/javascript">
+    $(function() {
+        $("#loginForm").validate({
+            rules: {
+                username:{
+                    required:true,//必填
+                    minlength:3, //最少6个字符
+                    maxlength:32,//最多20个字符
+                    remote: {
+                        url: "include/chkLogin.php?chk=chkName",  
+                        type: "post",            
+                        dataType: "json",         
+                        data: {                 
+                            username: function() {
+                                return $("#username").val();
+                            }
+                        }
+                    }
+                },
+                password:{
+                    required:true,
+                    minlength:3,
+                    maxlength:32,
+                    remote: {
+                        url: "include/chkLogin.php?chk=chkPwd",  
+                        type: "post",            
+                        dataType: "json",         
+                        data: {                 
+                            username: function() {
+                                return $("#username").val();
+                            },
+                            password: function() {
+                                return $("#password").val();
+                            }
+                        },
+                    }
+                },
+            },
+            messages: {
+                username:{
+                    required:"必须填写用户名",
+                    minlength:"用户名至少为3个字符",
+                    maxlength:"用户名至多为32个字符",
+                    remote: "用户名不存在",
+                },
+                password:{
+                    required:"必须填写密码",
+                    minlength:"密码至少为3个字符",
+                    maxlength:"密码至多为32个字符",
+                    remote: "用户名与密码不匹配",
+                },
+            },
+            submitHandler: function(){
+                $.session.set('loginUser', $("#username").val());
+                alert("验证成功！", "跳转到登录页面 :)", function () {
+                    window.location.href="index.html";
+                }, {type: 'success'});
+            }
+        });
+    })
+</script>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>入驻机构</title>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <style type="text/css">
+        .navbar-default{
+            background-color: white;
+        }
+        .navbar-brand>img{
+            margin-top: -20px;
+            width: auto;
+            height: 52px;
+        }
+        .navbar-nav li a{
+            height: 68px;
+            line-height: 38px;
+        }
+        .navbar-nav li{
+            float: left;
+        }
+        .banner{
+            margin-top: 68px;
+        }
+        .tab{
+            width: auto;
+            height: 130px;
+            background-color: #637790;
+        }
+        .tab-cell{
+            color: white;
+            font-size: 20px;
+            line-height: 130px;
+        }
+        .sidebar-title{
+            width: 240px;
+            height: 60px;
+            background-color: #187bca;            
+            font-size: 24px;
+        }
+        .sidebar-title a{
+            color: white;
+            line-height: 60px;
+            margin-left: 20px
+        }
+        .sub-title{
+            width: 240px;
+            height: 40px;
+            border: 1px solid #ccc;
+            font-size: 16px;            
+        }
+        .sub-title a{
+            color: black;
+            line-height: 40px;
+            margin-left: 20px
+        }
+        .section-box{
+            border: 1px solid #ccc;
+            border-bottom: none;
+            margin-top: 20px;
+        }
+        .section-nav{
+            padding: 20px;
+        }
+        .footer{
+            width: 100%;
+            font-size: 12px;
+            text-align: center;
+            margin-top: 30px;
+            line-height: 30px;
+            background-color: #262626;
+            padding: 20px 0;
+            color: white;
+        }
+        .department {
+            padding: 10px 20px;
+            padding-bottom: 0;
+        }
+        .in-thumbnail {
+            padding: 10px 20px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .in-thumbnail-title {
+            color: #000;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .in-thumbnail-title a {
+            color: #000;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .in-thumbnail-img{
+            padding: 10px 0;    
+        }
+        .in-thumbnail-img img{
+            width: 120px;
+            height: 120px;
+            
+        }
+        .in-thumbnail-text {
+            color: #666;
+            font-size: 14px;
+            height: 90px;
+            overflow: hidden;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed list-inline" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">
+                    <img src="images/logo.png" alt="中关村">
+                </a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav pull-right">
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="xinwen.html">街区新闻</a></li>
+                    <li style="background-color: #e7e7e7;"><a href="jigou.html">入驻机构</a></li>
+                    <li><a href="huodong.html">街区活动</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="banner">
+        <div class="tab">
+            <div class="tab-cell text-center">集聚创业服务 &nbsp; 孵化科技企业 &nbsp; 孕育创业文化</div>
+        </div>
+    </div>     
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <a href="">jintisindfisd</a>
+            </div>
+            <div class="col-md-9">
+                <div class="section-box">
+                    <div class="section-nav">
+                        <a href="/">首页</a>><a href="#">入驻机构</a>
+                    </div>
+                </div>
+                <div class="department" style="border: 1px solid #ddd">
+                    <div class="row">
+                        <!-- 分页内容 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a class="to-top">返回顶部</a>
+    <div class="footer">版权所有：北京海置科创科技服务有限公司 京ICP备14017783号-1 京公网安备11010802017670</div>
+
+
+
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/jquery.toTop.min.js"></script>
+    <script type="text/javascript">
+        $('.to-top').toTop();
+
+        // $.get("admin/include/server.php?item=queryjg", function(data) {
+        //     $('.ajax').html(data);
+        // }, "json");
+        $(".navbar-nav > li ").hover(function() {
+            $(this).addClass('active');
+        }, function() {
+            $(this).removeClass('active');
+        });
+        // 分页获取
+        function gotopage(p){
+            $.get("admin/include/util/page.php",'item=front_jigou&p='+p,function(data){
+                $('.department > .row').html(data);
+            });
+        }
+        gotopage(1); 
+    </script>
+</body>
+
+</html>

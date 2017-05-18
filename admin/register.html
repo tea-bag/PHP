@@ -1,0 +1,120 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>注册</title>
+<link rel="stylesheet" href="css/style1.css">
+<link rel="stylesheet" href="plugs/BeAlert/BeAlert.css">
+<body style="background:url('images/bg.jpg')no-repeat">
+
+<div class="register-container">
+    <h1>欢迎注册</h1>
+    <form action="login.html" method="post" id="registerForm">
+        <div>
+            <input type="text" name="username" id="username" class="username" placeholder="您的用户名" autocomplete="off"/>
+        </div>
+        <div>
+            <input type="password" name="password" id="password" class="password" placeholder="输入密码" oncontextmenu="return false" onpaste="return false" />
+        </div>
+        <div>
+            <input type="password" name="confirm_password" id="confirm_password" class="confirm_password" placeholder="再次输入密码" oncontextmenu="return false" onpaste="return false" />
+        </div>
+        <div>
+            <input type="email" name="email" id="email" class="email" placeholder="输入邮箱地址" oncontextmenu="return false" onpaste="return false" />
+        </div>
+
+        <button id="submit" class="btn" type="submit" name="submit">注 册</button>
+    </form>
+    <a href="login.html">
+        <button type="button" class="btn register-tis">已经有账号？</button>
+    </a>
+</div>
+
+</body>
+<script src="js/jquery.min.js"></script>
+<script src="plugs/BeAlert/BeAlert.js"></script>
+<!-- <script src="js/common.js"></script> -->
+
+<!--表单验证-->
+<script src="js/jquery.validate.js"></script>
+<script type="text/javascript">
+    $("#registerForm").validate({
+        rules: {
+            username:{
+                required:true,//必填
+                minlength:3, //最少6个字符
+                maxlength:32,//最多20个字符
+                remote: {
+                    url: "include/chkLogin.php?chk=chkRegName",  
+                    type: "post",            
+                    dataType: "json",         
+                    data: {                 
+                        username: function() {
+                            return $("#username").val();
+                        }
+                    }
+                }
+            },
+            password:{
+                required:true,
+                minlength:3,
+                maxlength:32,
+            },
+            confirm_password:{
+                required:true,
+                minlength:3,
+                equalTo:'.password'
+            },
+            email:{
+                required:true,
+                email:true,
+            },            
+        },
+        messages: {
+            username:{
+                required:"必须填写用户名",
+                minlength:"用户名至少为3个字符",
+                maxlength:"用户名至多为32个字符",
+                remote: "用户名已存在",
+            },
+            password:{
+                required:"必须填写密码",
+                minlength:"密码至少为3个字符",
+                maxlength:"密码至多为32个字符",
+            },
+            confirm_password:{
+                required: "请再次输入密码",
+                minlength: "确认密码不能少于3个字符",
+                equalTo: "两次输入密码不一致",//与另一个元素相同
+            },
+            email:{
+                required:"请输入邮箱地址",
+                email: "请输入正确的email地址"
+            },            
+        },
+        submitHandler: function(){
+            $.ajax({
+                url:"include/chkLogin.php?chk=regUser",
+                data: {                 
+                    username: function() {
+                        return $("#username").val();
+                    },
+                    password: function() {
+                        return $("#confirm_password").val();
+                    },
+                    email: function() {
+                        return $("#email").val();
+                    },
+                },
+                type:"post",
+                dataType:"json",
+            });
+
+            alert("注册成功！", "跳转到登录页面 :)", function () {
+                window.location.href="login.html";
+            }, {type: 'success'});
+        }
+    });
+</script>
+</html>
